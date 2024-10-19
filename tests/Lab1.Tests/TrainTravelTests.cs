@@ -28,7 +28,6 @@ public class TrainTravelTests
     [Fact]
     public void PowerMagneticRouteSectionAndMagneticRouteSectionShouldReturnSuccess()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, NormalForce),
@@ -37,14 +36,12 @@ public class TrainTravelTests
         var train = new Train(SmallMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxHighSpeed);
 
-        // Act and assert
         Assert.IsType<Result.SuccessWithTime>(route.TravelRoute(train));
     }
 
     [Fact]
     public void PowerMagneticRouteSectionWithHugeForceMagneticRouteSectionShouldReturnFailure()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, HugeForce),
@@ -53,7 +50,6 @@ public class TrainTravelTests
         var train = new Train(SmallMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxHighSpeed);
 
-        // Act and assert
         Assert.IsType<Result.InvalidForceApplied>(route.TravelRoute(train));
     }
 
@@ -61,7 +57,6 @@ public class TrainTravelTests
     public void
         PowerMagneticRouteSectionWithNormalForceMagneticRouteSectionStationMagneticRouteSectionShouldReturnSuccess()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, NormalForce),
@@ -72,14 +67,12 @@ public class TrainTravelTests
         var train = new Train(HugeMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxHighSpeed);
 
-        // Act and assert
         Assert.IsType<Result.SuccessWithTime>(route.TravelRoute(train));
     }
 
     [Fact]
     public void PowerMagneticRouteSectionWithHugeForceStationMagneticRouteSectionShouldReturnFailure()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, MediumForce),
@@ -89,7 +82,6 @@ public class TrainTravelTests
         var train = new Train(SmallMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxHighSpeed);
 
-        // Act and assert
         Assert.IsType<Result.ExceededMaxSpeed>(route.TravelRoute(train));
     }
 
@@ -97,7 +89,6 @@ public class TrainTravelTests
     public void
         PowerMagneticRouteSectionWithBiggerForceMagneticRouteSectionStationMagneticRouteSectionShouldReturnFailure()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, MediumForce),
@@ -108,15 +99,13 @@ public class TrainTravelTests
         var train = new Train(HugeMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxLowSpeed);
 
-        // Act and assert
         Assert.IsType<Result.ExceededMaxSpeed>(route.TravelRoute(train));
     }
 
     [Fact]
     public void
-        PowerMagneticRouteSectionWithBiggerForceMagneticRouteSectionPowerMagneticRouteSectionWithLessForceStationMagneticRouteSectionPowerMagneticRouteSectionWithBiggerForceMagneticRouteSectionPowerMagneticRouteSectionWithLessForceShouldReturnSuccess()
+        RouteWithExceedingSpeedReturnsToNormalShouldReturnSuccess()
     {
-        // Arrange
         var segments = new List<IRouteSectionService>
         {
             new PowerMagneticRouteSection(Distance, MediumForce),
@@ -131,7 +120,6 @@ public class TrainTravelTests
         var train = new Train(HugeMass, InitialSpeed, MaxForce, Accuracy);
         var route = new Route(segments, MaxMediumSpeed);
 
-        // Act and assert
         Assert.IsType<Result.SuccessWithTime>(route.TravelRoute(train));
     }
 }
